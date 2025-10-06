@@ -2,6 +2,9 @@ import  { useState } from "react";
 import './Feedback_form.css' // Import CSS for styling
 
 const FeedbackForm = () => {
+
+  const [display, setDisplay ] = useState([])
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +21,7 @@ const FeedbackForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setDisplay((e)=> [...e,formData])
 
     const confirmationMessage =  `
     Name: ${formData.name}
@@ -69,6 +73,19 @@ const FeedbackForm = () => {
         ></textarea>
         <button type="submit">Submit Feedback</button>
       </form>
+      <h1>Your details</h1>
+      <ul style={{padding: 20, textAlign: "center"}}>
+        {
+          display.map((e,index)=>(
+          <p key={index}>
+               <p>{e.name} </p>
+            <p>{e.email} </p>
+            <p>{e.feedback}</p>
+          </p>
+           
+          ) )
+        }
+      </ul>
     </>
   );
 };
